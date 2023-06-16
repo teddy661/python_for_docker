@@ -46,5 +46,5 @@ RUN source scl_source enable gcc-toolset-11 && make -j 8
 RUN source scl_source enable gcc-toolset-11 && make install 
 ENV LD_LIBRARY_PATH=/opt/python/py311/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py311/bin:${PATH}
-RUN pip3 install --upgrade pip
-RUN pip3 install wheel
+RUN pip3 install --no-cache-dir --upgrade pip
+RUN pip3 install --no-cache-dir wheel
