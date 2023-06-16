@@ -1,6 +1,5 @@
 FROM  nvidia/cuda:11.8.0-cudnn8-devel-rockylinux8 AS build
 SHELL ["/bin/bash", "-c"]
-ENV PY_VERSION=3.11.4
 RUN dnf install epel-release -y
 RUN /usr/bin/crb enable
 RUN dnf update --disablerepo=cuda -y
@@ -25,14 +24,13 @@ RUN dnf install \
                 uuid \
                 tcl-devel tcl tk-devel tk \
                 sqlite-devel \
-                #tensorrt-8.5.3.1-1.cuda11.8 \
-                #tensorrt-8.6.0.12-1.cuda11.8 \
                 gcc-toolset-11 \
                 xmlto \
                 asciidoc \
                 docbook2X \
                 gdbm-devel gdbm -y
 WORKDIR /tmp/bpython
+ENV PY_VERSION=3.11.4
 RUN wget https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz
 RUN tar -xf  Python-${PY_VERSION}.tar.xz
 WORKDIR /tmp/bpython/Python-${PY_VERSION}
