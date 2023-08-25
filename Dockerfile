@@ -30,7 +30,7 @@ RUN dnf install \
                 docbook2X \
                 gdbm-devel gdbm -y
 WORKDIR /tmp/bpython
-ENV PY_VERSION=3.11.4
+ENV PY_VERSION=3.11.5
 RUN wget https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz
 RUN tar -xf  Python-${PY_VERSION}.tar.xz
 WORKDIR /tmp/bpython/Python-${PY_VERSION}
@@ -44,5 +44,7 @@ RUN source scl_source enable gcc-toolset-11 && make -j 8
 RUN source scl_source enable gcc-toolset-11 && make install 
 ENV LD_LIBRARY_PATH=/opt/python/py311/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py311/bin:${PATH}
-RUN pip3 install --no-cache-dir --upgrade pip
-RUN pip3 install --no-cache-dir wheel
+RUN ln  /opt/python/py311/bin/python3.11 /opt/python/py311/bin/python \
+    && ln /opt/python/py311/bin/pip3 /opt/python/py311/bin/pip
+RUN pip3 install --no-cache-dir -U pip
+RUN pip3 install --no-cache-dir -U wheel setuptools
