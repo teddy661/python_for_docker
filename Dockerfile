@@ -30,7 +30,7 @@ RUN dnf install \
                 docbook2X \
                 gdbm-devel gdbm -y
 WORKDIR /tmp/bpython
-ENV PY_VERSION=3.11.5
+ENV PY_VERSION=3.11.6
 RUN wget https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz
 RUN tar -xf  Python-${PY_VERSION}.tar.xz
 WORKDIR /tmp/bpython/Python-${PY_VERSION}
