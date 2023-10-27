@@ -31,8 +31,7 @@ RUN dnf install \
                 gdbm-devel gdbm -y
 WORKDIR /tmp/bpython
 ENV PY_VERSION=3.11.6
-RUN wget https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz
-RUN tar -xf  Python-${PY_VERSION}.tar.xz
+RUN wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv 
 WORKDIR /tmp/bpython/Python-${PY_VERSION}
 RUN source scl_source enable gcc-toolset-11 && ./configure --enable-shared \
                 --enable-optimizations \ 
