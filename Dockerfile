@@ -24,7 +24,7 @@ RUN dnf install \
                 uuid \
                 tcl-devel tcl tk-devel tk \
                 sqlite-devel \
-                gcc-toolset-11 \
+                gcc-toolset-12 \
                 xmlto \
                 asciidoc \
                 docbook2X \
@@ -33,14 +33,14 @@ WORKDIR /tmp/bpython
 ENV PY_VERSION=3.11.6
 RUN wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv 
 WORKDIR /tmp/bpython/Python-${PY_VERSION}
-RUN source scl_source enable gcc-toolset-11 && ./configure --enable-shared \
+RUN source scl_source enable gcc-toolset-12 && ./configure --enable-shared \
                 --enable-optimizations \ 
                 --enable-ipv6 \ 
                 --with-lto=full \
                 --with-ensurepip=upgrade \
                 --prefix=/opt/python/py311
-RUN source scl_source enable gcc-toolset-11 && make -j 8
-RUN source scl_source enable gcc-toolset-11 && make install 
+RUN source scl_source enable gcc-toolset-12 && make -j 8
+RUN source scl_source enable gcc-toolset-12 && make install 
 ENV LD_LIBRARY_PATH=/opt/python/py311/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py311/bin:${PATH}
 RUN ln  /opt/python/py311/bin/python3.11 /opt/python/py311/bin/python \
