@@ -1,4 +1,4 @@
-FROM  nvidia/cuda:11.8.0-cudnn8-devel-rockylinux8 AS build
+FROM nvidia/cuda:12.2.2-cudnn8-runtime-rockylinux8 AS build
 SHELL ["/bin/bash", "-c"]
 RUN dnf install epel-release -y
 RUN /usr/bin/crb enable
