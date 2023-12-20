@@ -30,7 +30,7 @@ RUN dnf install \
                 docbook2X \
                 gdbm-devel gdbm -y
 WORKDIR /tmp/bpython
-ENV PY_VERSION=3.11.6
+ENV PY_VERSION=3.11.7
 RUN wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv 
 WORKDIR /tmp/bpython/Python-${PY_VERSION}
 RUN source scl_source enable gcc-toolset-12 && ./configure --enable-shared \
