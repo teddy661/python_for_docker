@@ -1,9 +1,10 @@
 FROM nvidia/cuda:12.2.2-cudnn8-devel-rockylinux8 AS build
 SHELL ["/bin/bash", "-c"]
-RUN dnf install epel-release -y
-RUN /usr/bin/crb enable
-RUN dnf update --disablerepo=cuda -y
-RUN dnf install \
+RUN yum install dnf-plugins-core -y && \
+    dnf config-manager --set-enabled powertools -y && \
+    dnf install epel-release -y && \
+    dnf --disablerepo=cuda update -y && \
+    dnf install \
                 curl \
                 perl-devel \
                 libcurl-devel \
@@ -21,7 +22,7 @@ RUN dnf install \
                 make \
                 ncurses ncurses-devel \
                 readline-devel \
-                uuid-devel \
+                uuid uuid-devel \
                 tcl-devel  tcl \
                 tk-devel  tk \
                 sqlite-devel \
