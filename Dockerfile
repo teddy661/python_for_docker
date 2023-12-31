@@ -21,8 +21,9 @@ RUN dnf install \
                 make \
                 ncurses ncurses-devel \
                 readline-devel \
-                uuid \
-                tcl-devel tcl tk-devel tk \
+                uuid-devel \
+                tcl-devel  tcl \
+                tk-devel  tk \
                 sqlite-devel \
                 gcc-toolset-12 \
                 xmlto \
@@ -42,6 +43,7 @@ RUN mkdir /tmp/bpython && cd /tmp/bpython; \
                 --enable-shared \
                 --enable-ipv6 \ 
                 --with-lto=full \
+                --with-system-expat \
                 --without-ensurepip \
                 --prefix=${INST_PREFIX} && \
                 source scl_source enable gcc-toolset-12 && \
