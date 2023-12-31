@@ -63,10 +63,31 @@ RUN mkdir /tmp/bpython && cd /tmp/bpython; \
                         \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) \
                         -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \
                     \) -exec rm -rf '{}' + \
-                ; 
+                ;
+# if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV LD_LIBRARY_PATH=/opt/python/py311/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py311/bin:${PATH}
-RUN ln  /opt/python/py311/bin/python3.11 /opt/python/py311/bin/python \
-    && ln /opt/python/py311/bin/pip3 /opt/python/py311/bin/pip
-RUN pip3 install --no-cache-dir -U pip
-RUN pip3 install --no-cache-dir -U wheel setuptools virtualenv build twine
+RUN ln  /opt/python/py311/bin/python3.11 /opt/python/py311/bin/python 
+ENV PYTHON_PIP_VERSION 23.3.2
+# https://github.com/docker-library/python/issues/365
+ENV PYTHON_SETUPTOOLS_VERSION 69.0.3
+# https://github.com/pypa/get-pip
+ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/049c52c665e8c5fd1751f942316e0a5c777d304f/public/get-pip.py
+ENV PYTHON_GET_PIP_SHA256 7cfd4bdc4d475ea971f1c0710a5953bcc704d171f83c797b9529d9974502fcc6
+RUN set -eux; \
+	wget -O get-pip.py "$PYTHON_GET_PIP_URL"; \
+	echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum -c -; \
+	export PYTHONDONTWRITEBYTECODE=1; \
+	\
+	python get-pip.py \
+		--disable-pip-version-check \
+		--no-cache-dir \
+		--no-compile \
+		"pip==$PYTHON_PIP_VERSION" \
+		"setuptools==$PYTHON_SETUPTOOLS_VERSION" \
+	; \
+	rm -f get-pip.py; \
+	\
+	pip --version ; \
+    pip install --no-cache-dir -U wheel virtualenv build
+CMD ["python"]
