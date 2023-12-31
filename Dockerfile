@@ -63,7 +63,7 @@ RUN mkdir /tmp/bpython && cd /tmp/bpython; \
                         \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) \
                         -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \
                     \) -exec rm -rf '{}' + \
-                ; \
+                ; 
 ENV LD_LIBRARY_PATH=/opt/python/py311/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py311/bin:${PATH}
 RUN ln  /opt/python/py311/bin/python3.11 /opt/python/py311/bin/python \
