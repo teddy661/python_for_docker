@@ -32,7 +32,7 @@ RUN yum install dnf-plugins-core -y && \
                 docbook2X \
                 gdbm-devel gdbm -y &&\
                 dnf clean all
-ENV PY_VERSION=3.11.7 
+ENV PY_VERSION=3.11.8 
 ENV INST_PREFIX=/opt/python/py311
 RUN mkdir /tmp/bpython && cd /tmp/bpython; \
     wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv && \
@@ -71,7 +71,7 @@ RUN mkdir /tmp/bpython && cd /tmp/bpython; \
 ENV LD_LIBRARY_PATH=/opt/python/py311/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py311/bin:${PATH}
 RUN ln  /opt/python/py311/bin/python3.11 /opt/python/py311/bin/python 
-ENV PYTHON_PIP_VERSION 23.3.2
+ENV PYTHON_PIP_VERSION 24.0
 # https://github.com/docker-library/python/issues/365
 ENV PYTHON_SETUPTOOLS_VERSION 69.0.3
 # https://github.com/pypa/get-pip
