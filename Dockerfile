@@ -33,7 +33,7 @@ RUN yum install dnf-plugins-core -y && \
                 gdbm-devel gdbm -y &&\
                 dnf clean all
 ENV PY_VERSION=3.12.2 
-ENV INST_PREFIX=/opt/python/py311
+ENV INST_PREFIX=/opt/python/py312
 RUN mkdir /tmp/bpython && cd /tmp/bpython; \
     wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv && \
     cd Python-${PY_VERSION} && \ 
@@ -68,9 +68,9 @@ RUN mkdir /tmp/bpython && cd /tmp/bpython; \
                     \) -exec rm -rf '{}' + \
                 ;
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
-ENV LD_LIBRARY_PATH=/opt/python/py311/lib:${LD_LIBRARY_PATH}
-ENV PATH=/opt/python/py311/bin:${PATH}
-RUN ln  /opt/python/py311/bin/python3.11 /opt/python/py311/bin/python 
+ENV LD_LIBRARY_PATH=/opt/python/py312/lib:${LD_LIBRARY_PATH}
+ENV PATH=/opt/python/py312/bin:${PATH}
+RUN ln  /opt/python/py312/bin/python3.12 /opt/python/py312/bin/python 
 ENV PYTHON_PIP_VERSION 24.0
 # https://github.com/docker-library/python/issues/365
 ENV PYTHON_SETUPTOOLS_VERSION 69.0.3
