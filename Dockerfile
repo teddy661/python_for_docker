@@ -1,11 +1,11 @@
-FROM nvidia/cuda:12.2.2-cudnn8-devel-rockylinux8 AS build
+FROM nvidia/cuda:12.3.2-cudnn9-devel-rockylinux9 AS build
 SHELL ["/bin/bash", "-c"]
 RUN yum install dnf-plugins-core -y && \
-    dnf config-manager --set-enabled powertools -y && \
+    dnf config-manager --enable crb -y && \
     dnf install epel-release -y && \
     dnf --disablerepo=cuda update -y && \
+    /usr/bin/crb enable && \
     dnf install \
-                curl \
                 perl-devel \
                 libcurl-devel \
                 expat-devel \
@@ -32,7 +32,7 @@ RUN yum install dnf-plugins-core -y && \
                 docbook2X \
                 gdbm-devel gdbm -y &&\
                 dnf clean all
-ENV PY_VERSION=3.11.8 
+ENV PY_VERSION=3.12.2 
 ENV INST_PREFIX=/opt/python/py311
 RUN mkdir /tmp/bpython && cd /tmp/bpython; \
     wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv && \
