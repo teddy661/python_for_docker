@@ -31,22 +31,23 @@ RUN yum install dnf-plugins-core -y && \
                 docbook2X \
                 gdbm-devel gdbm -y &&\
                 dnf clean all
-ENV PY_VERSION=3.13.2
-ENV PY_THREE_DIGIT=313 
+ARG PY_VERSION=3.13.2
+ARG PY_THREE_DIGIT=313
+LABEL maintainer="me@here.com"
+LABEL version="${PY_VERSION}"
+LABEL description="Python ${PY_VERSION} with CUDA support"
 ENV INST_PREFIX=/opt/python/py${PY_THREE_DIGIT}
 RUN mkdir /tmp/bpython && cd /tmp/bpython; \
-    wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv && \
-    cd Python-${PY_VERSION} && \ 
-    source scl_source enable gcc-toolset-12 && ./configure --enable-shared \
+    wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv 
+WORKDIR Python-${PY_VERSION} 
+RUN  source scl_source enable gcc-toolset-12 && ./configure --enable-shared \
                 --enable-loadable-sqlite-extensions \
                 --enable-optimizations \ 
                 --enable-option-checking=fatal \
                 --enable-shared \
                 --enable-ipv6 \ 
                 --with-lto=full \
-                --with-system-expat \
                 --with-ensurepip=upgrade \
-                --without-system-expat \
                 --prefix=${INST_PREFIX} && \
                 source scl_source enable gcc-toolset-12 && \
                 EXTRA_CFLAGS="-DTHREAD_STACK_SIZE=0x100000"; \
