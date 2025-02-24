@@ -39,7 +39,7 @@ LABEL description="Python ${PY_VERSION} with CUDA support"
 ENV INST_PREFIX=/opt/python/py${PY_THREE_DIGIT}
 RUN mkdir /tmp/bpython && cd /tmp/bpython; \
     wget -qO- https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz | xzcat | tar xv 
-WORKDIR Python-${PY_VERSION} 
+WORKDIR /tmp/bpython/Python-${PY_VERSION} 
 RUN  source scl_source enable gcc-toolset-12 && ./configure --enable-shared \
                 --enable-loadable-sqlite-extensions \
                 --enable-optimizations \ 
