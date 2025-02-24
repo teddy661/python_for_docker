@@ -33,6 +33,7 @@ RUN yum install dnf-plugins-core -y && \
                 dnf clean all
 ARG PY_VERSION=3.13.2
 ARG PY_THREE_DIGIT=313
+ARG PY_SHORT=3.13
 LABEL maintainer="me@here.com"
 LABEL version="${PY_VERSION}"
 LABEL description="Python ${PY_VERSION} with CUDA support"
@@ -72,7 +73,7 @@ RUN  source scl_source enable gcc-toolset-12 && ./configure --enable-shared \
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV LD_LIBRARY_PATH=/opt/python/py${PY_THREE_DIGIT}/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py${PY_THREE_DIGIT}/bin:${PATH}
-RUN ln  /opt/python/py${PY_THREE_DIGIT}/bin/python3.13 /opt/python/py${PY_THREE_DIGIT}/bin/python 
+RUN ln  /opt/python/py${PY_THREE_DIGIT}/bin/python${PY_SHORT} /opt/python/py${PY_THREE_DIGIT}/bin/python 
 ENV PYTHON_PIP_VERSION=25.0
 # https://github.com/docker-library/python/issues/365
 ENV PYTHON_SETUPTOOLS_VERSION=75.8.0
