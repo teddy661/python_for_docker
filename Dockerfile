@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.6.0-cudnn-devel-rockylinux9 AS build
+FROM nvidia/cuda:12.4.1-cudnn-devel-rockylinux9 AS build
 SHELL ["/bin/bash", "-c"]
 RUN yum install dnf-plugins-core -y && \
     dnf config-manager --enable crb -y && \
