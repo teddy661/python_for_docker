@@ -31,7 +31,7 @@ RUN yum install dnf-plugins-core -y && \
                 docbook2X \
                 gdbm-devel gdbm -y &&\
                 dnf clean all
-ARG PY_VERSION=3.13.3
+ARG PY_VERSION=3.13.5
 ARG PY_THREE_DIGIT=313
 ARG PY_SHORT=3.13
 LABEL maintainer="me@here.com"
@@ -74,12 +74,12 @@ RUN  source scl_source enable gcc-toolset-12 && ./configure --enable-shared \
 ENV LD_LIBRARY_PATH=/opt/python/py${PY_THREE_DIGIT}/lib:${LD_LIBRARY_PATH}
 ENV PATH=/opt/python/py${PY_THREE_DIGIT}/bin:${PATH}
 RUN ln  /opt/python/py${PY_THREE_DIGIT}/bin/python${PY_SHORT} /opt/python/py${PY_THREE_DIGIT}/bin/python 
-ENV PYTHON_PIP_VERSION=25.0.1
+ENV PYTHON_PIP_VERSION=25.1.1
 # https://github.com/docker-library/python/issues/365
-ENV PYTHON_SETUPTOOLS_VERSION=78.1.0
+ENV PYTHON_SETUPTOOLS_VERSION=80.9.0
 # https://github.com/pypa/get-pip
 ENV PYTHON_GET_PIP_URL=https://raw.githubusercontent.com/pypa/get-pip/refs/tags/${PYTHON_PIP_VERSION}/public/get-pip.py
-ENV PYTHON_GET_PIP_SHA256=2f3ff20716690396762da67f20b04ece444fe5fcba3d9f967de0021d71565043
+ENV PYTHON_GET_PIP_SHA256=3e2d676aaf596726d0cd2265fca1d3d9f0fad9bbe86da7349245a68e03ddfad7
 RUN set -eux; \
 	wget -O get-pip.py "$PYTHON_GET_PIP_URL"; \
 	echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum -c -; \
