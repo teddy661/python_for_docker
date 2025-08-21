@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.4.1-cudnn-devel-rockylinux9 AS build
+FROM nvidia/cuda:12.9.1-cudnn-devel-rockylinux9 AS build
 SHELL ["/bin/bash", "-c"]
 RUN yum install dnf-plugins-core -y && \
     dnf config-manager --enable crb -y && \
@@ -31,7 +31,7 @@ RUN yum install dnf-plugins-core -y && \
                 docbook2X \
                 gdbm-devel gdbm -y &&\
                 dnf clean all
-ARG PY_VERSION=3.13.6
+ARG PY_VERSION=3.13.7
 ARG PY_THREE_DIGIT=313
 ARG PY_SHORT=3.13
 LABEL maintainer="me@here.com"
